@@ -23,11 +23,11 @@ function suitelet( request, response ) {
 
 var app = ( function() {
 
-	var FORM_NAME 		= 'Customers',			// Form Name
+	var FORM_NAME		= 'Customers',			// Form Name
 		LIST_NAME		= 'Customers List',		// List Name
-		SUBMIT_BUTTON 	= 'Process',			// Submit button caption
-		MAX_RECORDS 	= 10,					// Maximum number of records to display on the sublist
-		MARKALL_ENABLED = true;					// Mark all option enabled
+		SUBMIT_BUTTON	= 'Process',			// Submit button caption
+		MAX_RECORDS		= 10,					// Maximum number of records to display on the sublist
+		MARKALL_ENABLED	= true;					// Mark all option enabled
 	
 	/**
 	 * Handles Suitelet GET Method
@@ -165,15 +165,18 @@ var app = ( function() {
 		var filters = [],
 			columns = [],
 			i = 0;
-		   
+		
+		// TODO: Add filters   
 		if ( request.getParameter('custpage_internalid') != null && 
 			 request.getParameter('custpage_internalid') != '' ) filters[i++] = new nlobjSearchFilter('internalid', null, 'is', request.getParameter('custpage_internalid'));
 		
 		i = 0;
 		   
+		// TODO: Add result columns
 		columns[i++] = new nlobjSearchColumn('internalid');
 		columns[i++] = new nlobjSearchColumn('companyname');
 	    
+		// TODO: Set the record
 		return nlapiSearchRecord('customer', null, filters, columns);       
 	};
 
