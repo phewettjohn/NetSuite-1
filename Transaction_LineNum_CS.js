@@ -71,7 +71,7 @@ function setLineNumbers() {
 		i = 0;
 		
 	// Set the Line Number transaction column. This field is disabled to the user
-	for (var i = 1; i <= itemsCount; i++ ) {
+	for (i = 1; i <= itemsCount; i++ ) {
 		
 		nlapiSetLineItemValue('item', 'custcol_line_number', i, i);
 	}

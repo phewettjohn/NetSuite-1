@@ -10,8 +10,7 @@
  * @appliedtorecord Sales Order, Purchase Order
  *   
  * @param {String} type Operation types
- * @param {nlobjForm} form Current form
- * @param {nlobjRequest} request Request object
+ * 
  * @returns {Void}
  */
 function beforeSubmit(type) {
@@ -29,7 +28,7 @@ function beforeSubmit(type) {
  */
 function getLineItemCount()
 {
-	var itemsCount 			= nlapiGetLineItemCount('item');
+	var itemsCount = nlapiGetLineItemCount('item');
 	
 	// For Purchase Orders and Sales Orders, set count of lines into the custom field
 	nlapiSetFieldValue('custbody_items_count', itemsCount);	

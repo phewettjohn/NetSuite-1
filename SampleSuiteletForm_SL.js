@@ -1,5 +1,5 @@
 /**
- * Sample Suitelet Code
+ * Sample Suitelet Form Code
  * 
  * Version    Date            Author           Remarks
  * 1.00       04 Jan 2016     Marcel Pestana   Initial Version
