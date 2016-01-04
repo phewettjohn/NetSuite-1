@@ -25,7 +25,7 @@ var app = ( function() {
 
 	var FORM_NAME		= 'Customers',			// Form Name
 		LIST_NAME		= 'Customers List',		// List Name
-		SUBMIT_BUTTON	= 'Process',			// Submit button caption
+		SUBMIT_BUTTON	= 'Submit',				// Submit button caption
 		MAX_RECORDS		= 10,					// Maximum number of records to display on the sublist
 		MARKALL_ENABLED	= true;					// Mark all option enabled
 	
@@ -75,9 +75,9 @@ var app = ( function() {
 		
 	    for ( var i = 1; i <= request.getLineItemCount('custpage_sublist'); i++ ) {
 			
-	        if ( request.getLineItemValue('custpage_sublist', 'selected', i) == 'T' ) {
+	        if ( request.getLineItemValue('custpage_sublist', 'custpage_selected', i) == 'T' ) {
 	        	
-	        	// Process the line
+	        	// TODO: Process the line
 	        }
 	    }
 
@@ -110,7 +110,7 @@ var app = ( function() {
 		
 	    var internalId = form.addField('custpage_internalid', 'text', 'Internal Id', null);
 	    
-	    if (request.getParameter('custpage_internalid') != null) internalId.setDefaultValue(request.getParameter('custpage_internalid')); 
+	    if ( isNotEmpty(request.getParameter('custpage_internalid')) ) internalId.setDefaultValue(request.getParameter('custpage_internalid')); 
 	};
 
 	/**
@@ -122,13 +122,18 @@ var app = ( function() {
 	 */
 	var getSubList = function( form ) {
 		
-	    var list = form.addSubList('custpage_sublist' , 'list' , LIST_NAME , 'general');
+	    var subList = form.addSubList('custpage_sublist' , 'list' , LIST_NAME , 'general');
 
-	    // TODO: Add fields to the SubList
-	    list.addField('custpage_internalid', 'text', 'InternalId');
-	    list.addField('custpage_name', 'text', 'Name' );  
+	    // TODO: Add fields to the SubList	    
+	    if ( MARKALL_ENABLED ) subList.addField('custpage_selected', 'checkbox', 'Selected');    
+	   
+	    subList.addField('custpage_internalid', 'text', 'InternalId');
+	    subList.addField('custpage_name', 'text', 'Name' );  
 	  
-	    return list;
+	    // Add an option to mark all items    	
+	    if ( MARKALL_ENABLED ) subList.addMarkAllButtons();
+	    
+	    return subList;
 	};
 
 	/**
@@ -167,8 +172,7 @@ var app = ( function() {
 			i = 0;
 		
 		// TODO: Add filters   
-		if ( request.getParameter('custpage_internalid') != null && 
-			 request.getParameter('custpage_internalid') != '' ) filters[i++] = new nlobjSearchFilter('internalid', null, 'is', request.getParameter('custpage_internalid'));
+		if ( isNotEmpty(request.getParameter('custpage_internalid')) ) filters[i++] = new nlobjSearchFilter('internalid', null, 'is', request.getParameter('custpage_internalid'));
 		
 		i = 0;
 		   
