@@ -2,7 +2,7 @@
  * Library with some useful methods
  * 
  * Version    Date            Author           Remarks
- * 1.00       04 Jan 2016     Marcel P		   Initial Version
+ * 1.00       04 Jan 2016     Marcel Pestana   Initial Version
  *
  */
 
