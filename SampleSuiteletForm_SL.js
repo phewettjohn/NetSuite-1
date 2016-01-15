@@ -11,9 +11,9 @@
  * @param {nlobjResponse} response Response object
  * @returns {Void} Any output is written via response object
  */
-function suitelet( request, response ) {
+function suitelet(request, response) {
 
-	if ( request.getMethod() == 'GET' ) {      
+	if (request.getMethod() == 'GET') {      
         app.handleGet();
     }
     else {
@@ -23,11 +23,11 @@ function suitelet( request, response ) {
 
 var app = ( function() {
 
-	var FORM_NAME		= 'Customers',			// Form Name
-		LIST_NAME		= 'Customers List',		// List Name
-		SUBMIT_BUTTON	= 'Submit',				// Submit button caption
-		MAX_RECORDS		= 10,					// Maximum number of records to display on the sublist
-		MARKALL_ENABLED	= true;					// Mark all option enabled
+	var FORM_NAME = 'Customers',			// Form Name
+		LIST_NAME = 'Customers List',		// List Name
+		SUBMIT_BUTTON = 'Submit',			// Submit button caption
+		MAX_RECORDS = 10,					// Maximum number of records to display on the sublist
+		MARKALL_ENABLED	= true;				// Mark all option enabled
 	
 	/**
 	 * Handles Suitelet GET Method
@@ -62,7 +62,7 @@ var app = ( function() {
 			response.writePage(form);
 		}
 		catch(e) {		
-			displayMessage('An error occurred. ' + ( e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e ));		
+			displayMessage('An error occurred. ' + (e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e));		
 		}		
 	};
 
@@ -73,9 +73,9 @@ var app = ( function() {
 	 */
 	var handlePost = function() {
 		
-	    for ( var i = 1; i <= request.getLineItemCount('custpage_sublist'); i++ ) {
+	    for (var i = 1; i <= request.getLineItemCount('custpage_sublist'); i++) {
 			
-	        if ( request.getLineItemValue('custpage_sublist', 'custpage_selected', i) == 'T' ) {
+	        if (request.getLineItemValue('custpage_sublist', 'custpage_selected', i) == 'T') {
 	        	
 	        	// TODO: Process the line
 	        }
@@ -88,11 +88,11 @@ var app = ( function() {
 	/**
 	 * Add Buttons
 	 * 
-	 * @param {nlobjForm} Object containing the form
+	 * @param {nlobjForm} form Object containing the form
 
 	 * @returns {Void} 
 	 */
-	var addButtons = function( form ) {
+	var addButtons = function(form) {
 		
 	   form.addSubmitButton(SUBMIT_BUTTON);
 	   
@@ -106,11 +106,11 @@ var app = ( function() {
 
 	 * @returns {Void} 
 	 */
-	var addFilters = function( form ) {
+	var addFilters = function(form) {
 		
 	    var internalId = form.addField('custpage_internalid', 'text', 'Internal Id', null);
 	    
-	    if ( isNotEmpty(request.getParameter('custpage_internalid')) ) internalId.setDefaultValue(request.getParameter('custpage_internalid')); 
+	    if (isNotEmpty(request.getParameter('custpage_internalid'))) internalId.setDefaultValue(request.getParameter('custpage_internalid')); 
 	};
 
 	/**
@@ -120,18 +120,18 @@ var app = ( function() {
 
 	 * @returns {Void} 
 	 */
-	var getSubList = function( form ) {
+	var getSubList = function(form) {
 		
 	    var subList = form.addSubList('custpage_sublist' , 'list' , LIST_NAME , 'general');
 
 	    // TODO: Add fields to the SubList	    
-	    if ( MARKALL_ENABLED ) subList.addField('custpage_selected', 'checkbox', 'Selected');    
+	    if (MARKALL_ENABLED) subList.addField('custpage_selected', 'checkbox', 'Selected');    
 	   
 	    subList.addField('custpage_internalid', 'text', 'InternalId');
 	    subList.addField('custpage_name', 'text', 'Name' );  
 	  
 	    // Add an option to mark all items    	
-	    if ( MARKALL_ENABLED ) subList.addMarkAllButtons();
+	    if (MARKALL_ENABLED) subList.addMarkAllButtons();
 	    
 	    return subList;
 	};
@@ -144,15 +144,15 @@ var app = ( function() {
 	 * 
 	 * @returns {Void} 
 	 */
-	var populateSubList = function( list, searchResults ) {
+	var populateSubList = function(list, searchResults) {
 		
 		var searchLength = (searchResults ? searchResults.length : 0),
 			i = 0;
 		
 		// Checks if needs to display only a number of records
-		if ( MAX_RECORDS ) searchLength = searchLength > MAX_RECORDS ? MAX_RECORDS : searchLength;
+		if (MAX_RECORDS) searchLength = searchLength > MAX_RECORDS ? MAX_RECORDS : searchLength;
 		
-		for ( i = 0; i < searchLength; i++ ) {
+		for (i = 0; i < searchLength; i++) {
 			
 			// TODO: Set the field values
 			list.setLineItemValue('custpage_internalid', i + 1	, searchResults[i].getValue('internalid'));
@@ -165,14 +165,14 @@ var app = ( function() {
 	 * 
 	 * @returns {Void} 
 	 */
-	var getSearchResults = function()
-	{
+	var getSearchResults = function() {
+		
 		var filters = [],
 			columns = [],
 			i = 0;
 		
 		// TODO: Add filters   
-		if ( isNotEmpty(request.getParameter('custpage_internalid')) ) filters[i++] = new nlobjSearchFilter('internalid', null, 'is', request.getParameter('custpage_internalid'));
+		if (isNotEmpty(request.getParameter('custpage_internalid'))) filters[i++] = new nlobjSearchFilter('internalid', null, 'is', request.getParameter('custpage_internalid'));
 		
 		i = 0;
 		   
@@ -190,7 +190,7 @@ var app = ( function() {
 	 * @param {String} message Message
 	 * @returns {Void}
 	 */
-	var displayMessage = function( message ) {
+	var displayMessage = function(message) {
 		
 		// Create a NetSuite form
 	    var form = nlapiCreateForm(FORM_NAME, false),
@@ -205,7 +205,7 @@ var app = ( function() {
 	};
 		
 	return {
-		handleGet : handleGet,
-		handlePost : handlePost	
+		handleGet: handleGet,
+		handlePost: handlePost	
 		};
 })();

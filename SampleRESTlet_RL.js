@@ -10,7 +10,7 @@
  * @param {Object} dataIn Parameter object
  * @returns {Object} Output object
  */
-function getData( dataIn ) {
+function getData(dataIn) {
 	
 	var result = new Result();
 	
@@ -22,7 +22,7 @@ function getData( dataIn ) {
 	catch(e) {
 		result.success = false;
 		
-		result.AddError('E001', 'An error occurred. ' + ( e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e ));
+		result.AddError('E001', 'An error occurred. ' + (e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e));
 	}
 	return result;		
 }
@@ -31,7 +31,7 @@ function getData( dataIn ) {
  * @param {Object} dataIn Parameter object
  * @returns {Object} Output object
  */
-function postData( dataIn ) {
+function postData(dataIn) {
 	
 	var result = new Result();
 	
@@ -43,7 +43,7 @@ function postData( dataIn ) {
 	catch(e) {
 		result.success = false;
 		
-		result.AddError('E002', 'An error occurred. ' + ( e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e ));
+		result.AddError('E002', 'An error occurred. ' + (e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e));
 	}
 	return result;		
 }
@@ -52,7 +52,7 @@ function postData( dataIn ) {
  * @param {Object} dataIn Parameter object
  * @returns {Void} 
  */
-function deleteData( dataIn ) {
+function deleteData(dataIn) {
 
 	var result = new Result();
 	
@@ -64,7 +64,7 @@ function deleteData( dataIn ) {
 	catch(e) {
 		result.success = false;
 		
-		result.AddError('E003', 'An error occurred. ' + ( e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e ));
+		result.AddError('E003', 'An error occurred. ' + (e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e));
 	}
 	return result;		
 }
@@ -73,7 +73,7 @@ function deleteData( dataIn ) {
  * @param {Object} dataIn Parameter object
  * @returns {Object} Output object 
  */
-function putData( dataIn ) {
+function putData(dataIn) {
 	
 	var result = new Result();
 	
@@ -85,7 +85,7 @@ function putData( dataIn ) {
 	catch(e) {
 		result.success = false;
 		
-		result.AddError('E004', 'An error occurred. ' + ( e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e ));
+		result.AddError('E004', 'An error occurred. ' + (e instanceof nlobjError ? 'Code: ' + e.getCode() + ' - Details: ' + e.getDetails() : 'Details: ' + e));
 	}
 	return result;		
 }
@@ -97,7 +97,7 @@ var app = ( function() {
 	 * @param {Object} dataIn Parameter object
 	 * @returns {Void} 
 	 */
-	var getData = function( dataIn ) {
+	var getData = function(dataIn) {
 		
 		return nlapiLoadRecord(dataIn.recordType, dataIn.internalId);
 	};
@@ -106,7 +106,7 @@ var app = ( function() {
 	 * @param {Object} dataIn Parameter object
 	 * @returns {Void} 
 	 */
-	var postData = function( dataIn ) {
+	var postData = function(dataIn) {
 		
 		var objRet = {}, 
 			record,
@@ -114,19 +114,19 @@ var app = ( function() {
 			internalId;
 		
 		// If Internal id is provided, updates the record
-		if ( isNotEmpty(dataIn.internalId) ) {
+		if (isNotEmpty(dataIn.internalId)) {
 			record = nlapiLoadRecord(dataIn.recordType, dataIn.internalId);	
 		} else {
 			record = nlapiCreateRecord(dataIn.recordType);	
 		}			
 		
 		// Updates each field
-		for ( fieldName in dataIn ) {
-			if ( dataIn.hasOwnProperty(fieldName) ) {
-				if ( fieldName != 'recordType' && fieldName != 'id' ) {
+		for (fieldName in dataIn) {
+			if (dataIn.hasOwnProperty(fieldName)) {
+				if (fieldName != 'recordType' && fieldName != 'id') {
 					var value = dataIn[fieldName];
 					
-					if ( value && typeof value != 'object' ) {
+					if (value && typeof value != 'object') {
 						record.setFieldValue(fieldName, value);
 					}
 				}
@@ -145,7 +145,7 @@ var app = ( function() {
 
 	 * @returns {Void}
 	 */
-	var deleteData = function( dataIn ) {
+	var deleteData = function(dataIn) {
 		// Deletes the record
 		nlapiDeleteRecord(dataIn.recordType, dataIn.internalId);
 	}; 
