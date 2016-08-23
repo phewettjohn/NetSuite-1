@@ -201,6 +201,8 @@ var app = ( function() {
 	    field.setLayoutType('outsidebelow');
 	    field.setDefaultValue('<font size="2pt">' + html + '</font>');
 	    
+	    form.addButton('custombutton_back', 'Back', 'window.history.back()');
+	    
 	    response.writePage(form);
 	};
 		
